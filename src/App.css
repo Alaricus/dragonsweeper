@@ -12,16 +12,31 @@ img {
   -ms-user-select: none;
 }
 
-.App {
+.app {
   text-align: left;
   max-width: 1045px;
   user-select: none;
   cursor: default;
   margin-left: auto;
   margin-right: auto;
-
+  cursor: url("./images/cursor-inactive.png"), default;
   font-family: "librebaskerville";
   letter-spacing: 0.01em;
+}
+
+.title {
+  height: 40px;
+  color: #cccccc;
+  font-size: 20px;
+  text-shadow: -3px 0 4px #000000, 0 3px 4px #000000, 3px 0 4px #000000, 0 -3px 4px #000000;
+  text-align: center;
+  margin-top: 45px;
+  margin-bottom: 25px;
+}
+
+a {
+  color: #daa520;
+  text-decoration: none;
 }
 
 .tooltip {
@@ -102,13 +117,12 @@ img {
   text-align: center;
 }
 
-.activeCursor, button {
+.activeCursor, button, a {
   cursor: pointer;
   cursor: url("./images/cursor-active.png"), pointer;
 }
 
 .field {
-  margin-top: 50px;
   border: 2px solid #daa520;
   border-radius: 5px;
   width: 1026px;
@@ -121,8 +135,9 @@ img {
 
 .egginfo {
   height: 40px;
-  color: #000000;
+  color: #cccccc;
   font-size: 20px;
+  text-shadow: -3px 0 4px #000000, 0 3px 4px #000000, 3px 0 4px #000000, 0 -3px 4px #000000;
   text-align: center;
   margin-top: 25px;
 }

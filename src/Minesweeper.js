@@ -286,7 +286,7 @@ class Minesweeper extends Component {
           } */}
         </div>
         <div className="egginfo">
-          {`${this.state.flagged} eggs marked out of ${this.state.width * this.state.height * this.state.amount} live ones`}
+          {`${this.state.flagged} ${this.state.flagged === 1 ? 'egg' : 'eggs'} marked out of ${this.state.width * this.state.height * this.state.amount} live ones`}
         </div>
       </Fragment>
     );

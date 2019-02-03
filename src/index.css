@@ -1,6 +1,11 @@
+html {
+  height: 100%;
+  cursor: url("./images/cursor-inactive.png"), default;
+}
+
 body {
   margin: 0;
   padding: 0;
-  cursor: url("./images/cursor-inactive.png"), default;
   height: 100%;
+  background-color: #0f0f0f;
 }
