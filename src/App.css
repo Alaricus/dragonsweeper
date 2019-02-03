@@ -1,32 +1,299 @@
+@font-face {
+  font-family: "librebaskerville";
+  src: url("./fonts/librebaskerville.ttf");
+}
+
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 .App {
+  text-align: left;
+  max-width: 1045px;
+  user-select: none;
+  cursor: default;
+  margin-left: auto;
+  margin-right: auto;
+
+  font-family: "librebaskerville";
+  letter-spacing: 0.01em;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #daa520;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 10px 50px 10px 50px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.message {
+  display: none;
+  position: fixed;
+  z-index: 300;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #daa520;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 15px 50px 10px 50px;
+  text-align: center;
+  width: 630px;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.confirmation {
+  display: block;
+  position: fixed;
+  z-index: 400;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #daa520;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 15px 50px 10px 50px;
+  text-align: center;
+  width: 500px;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.block {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 210;
+}
+
+.blocklight {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.messageButton {
+  display: inline-block;
+  margin-top: 20px;
+  border: 1px solid #daa520;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px 10px 5px 10px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.MainInfo {
+  margin-left: 50px;
+  font-size: 38px;
+  letter-spacing: -0.03em;
+  padding: 0px 5px 0px 5px;
+  text-shadow: 0px 0px 4px #ffffff;
+  color: #000000;
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.activeCursor, button {
+  cursor: pointer;
+  cursor: url("./images/cursor-active.png"), pointer;
+}
+
+.field {
+  margin-top: 50px;
+  border: 2px solid #daa520;
+  border-radius: 5px;
+  width: 1026px;
+
+  font-size: 12px;
+  padding: 0;
+  box-shadow: 0 0 15px 5px #000000;
+  background-color: #963214;
+}
+
+.egginfo {
+  height: 40px;
+  color: #000000;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.floor0 {
+  display: inline-flex;
+  background-image: url("./images/floor0.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.floor1 {
+  display: inline-flex;
+  background-image: url("./images/floor1.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
+}
+
+.floor2 {
+  display: inline-flex;
+  background-image: url("./images/floor2.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
+}
+
+.cell0 {
+  display: inline-flex;
+  color: #ffffff;
+  background-image: url("./images/egg0.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
+}
+
+.cell1 {
+  display: inline-flex;
+  color: #ffffff;
+  background-image: url("./images/egg1.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
+}
+
+.cell2 {
+  display: inline-flex;
+  color: #ffffff;
+  background-image: url("./images/egg2.png");
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all .25s ease;
+}
+
+.flag {
+  height: 64px;
+  width: 64px;
+  opacity: 0.8;
+  pointer-events: none;
+  background-image: url("./images/flag.png");
+}
+
+.dragon0 {
+  background-image: url("./images/dragon0.png");
+}
+
+.dragon1 {
+  background-image: url("./images/dragon1.png");
+}
+
+.dragon2 {
+  background-image: url("./images/dragon2.png");
+}
+
+.dragon3 {
+  background-image: url("./images/dragon3.png");
+}
+
+.open0 {
+  background-image: url("./images/open0.png");
+}
+
+.open1 {
+  background-image: url("./images/open1.png");
+}
+
+.open2 {
+  background-image: url("./images/open2.png");
+}
+
+.open3 {
+  background-image: url("./images/open3.png");
+}
+
+.open4 {
+  background-image: url("./images/open4.png");
+}
+
+.open5 {
+  background-image: url("./images/open5.png");
+}
+
+.open6 {
+  background-image: url("./images/open6.png");
+}
+
+.open7 {
+  background-image: url("./images/open7.png");
+}
+
+.open8 {
+  background-image: url("./images/open8.png");
+}
+
+.hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0px 1px #000000, 0 0 12px 5px #111111;
+  border-radius: 5px;
+}
+
+.loot {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.gem {
+  width: 140px;
+  padding-left: 60px;
+  text-align: left;
+}
+
+.price {
+  width: 200px;
+  text-align: left;
+}
+
+.total {
+  width: 200px;
+  text-align: left;
 }
