@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Minesweeper from './Minesweeper';
 import './App.css';
 
@@ -25,26 +25,20 @@ const sounds = {
   tutorialClosed,
 };
 
-class App extends Component {
-  state = {
-    results: null,
-  };
-
-  playSound = (name = 'default') => {
+const App = () => {
+  const playSound = (name = 'default') => {
     const audio = document.createElement('audio');
     audio.src = `${sounds[name]}`;
     audio.volume = '0.20';
     audio.play();
   };
 
-  render() {
-    return (
-      <div className="app">
-        <p className="title">The Dragonsweeper minigame from <a href="https://store.steampowered.com/app/740790/Goldmine/">Goldmine</a></p>
-        <Minesweeper playSound={this.playSound} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="app">
+      <p className="title">The Dragonsweeper minigame from <a href="https://store.steampowered.com/app/740790/Goldmine/">Goldmine</a></p>
+      <Minesweeper playSound={playSound} />
+    </div>
+  );
+};
 
 export default App;
