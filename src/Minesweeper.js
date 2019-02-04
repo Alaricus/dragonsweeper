@@ -7,7 +7,7 @@ class Minesweeper extends Component {
     board: [],
     width: 16,
     height: 10,
-    amount: 0.05,
+    amount: 0.2,
     flagged: 0,
     firstMove: true,
     defeated: false,
