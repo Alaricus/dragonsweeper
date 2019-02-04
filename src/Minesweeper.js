@@ -1,20 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import Cell from './Cell';
-// import Message from './Message';
+import Message from './Message';
 
 class Minesweeper extends Component {
   state = {
     board: [],
     width: 16,
     height: 10,
-    amount: 0.2,
+    amount: 0.05,
     flagged: 0,
     firstMove: true,
     defeated: false,
     victorious: false,
     acknowledged: false,
-    tooltipStyle: { display: 'none' },
-    composition: null,
+    results: null,
   };
 
   componentDidMount() {
@@ -168,29 +167,15 @@ class Minesweeper extends Component {
     }
   }
 
-  revealComposition = () => {
-    if (!this.state.composition) {
-      const composition = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false };
-      this.state.board.forEach((row, rowIntex) => {
-        row.forEach((col, colIndex) => {
-          const number = this.getWarningNumber(rowIntex, colIndex);
-          if (number > 0 && !this.state.board[rowIntex][colIndex].mine) { composition[number] = true; }
-        });
-      });
-
-      this.setState({ composition });
-    }
-  };
-
   checkVictoryCondition() {
     const flat = this.state.board.reduce((acc, cur) => [...acc, ...cur], []);
     const won = flat.every(item => item.number !== null || item.mine);
     if (won) {
-      this.setState({ victorious: true });
+      this.setState({ victorious: true, results: this.countResults(true) });
     }
   }
 
-  countResults() {
+  countResults(victory) {
     const flat = this.state.board.reduce((acc, cur) => [...acc, ...cur], []);
     const results = flat.reduce((acc, cur) => {
       if (cur.number > 0) {
@@ -202,20 +187,8 @@ class Minesweeper extends Component {
       return acc;
     }, {
       tally: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 },
-      silent: this.state.victorious,
+      silent: victory,
       perfect: true,
-      prices: {
-        1: 50000000000,
-        2: 100000000000,
-        3: 150000000000,
-        4: 250000000000,
-        5: 500000000000,
-        6: 1000000000000,
-        7: 2000000000000,
-        8: 3000000000000,
-        silent: 1000000000000,
-        perfect: 2000000000000,
-      },
     });
 
     results.tally[7] = this.state.bonusSeven ? results.tally[7] + 1 : results.tally[7];
@@ -224,31 +197,11 @@ class Minesweeper extends Component {
   }
 
   handleDefeat() {
-    this.setState({ defeated: true });
+    this.setState({ defeated: true, results: this.countResults(false) });
   }
 
   acknowledgeEnd = () => {
     this.setState({ acknowledged: true });
-    this.props.exit(this.countResults());
-  }
-
-  showTooltip = (e) => {
-    const coords = [e.clientX, e.clientY];
-    this.setState({
-      tooltipStyle: {
-        display: 'inline-block',
-        top: `${coords[1] - 45}px`,
-        left: `${coords[0] + 25}px`,
-      },
-    });
-  }
-
-  hideTooltip = () => {
-    this.setState({
-      tooltipStyle: {
-        display: 'none',
-      },
-    });
   }
 
   render() {
@@ -275,18 +228,27 @@ class Minesweeper extends Component {
               </div>
             ))
           }
-          {/* { this.state.defeated
+          { this.state.defeated
             && !this.state.acknowledged
-            && <Message type="defeat" acknowledge={this.acknowledgeEnd} />
+            && <Message type="defeat" acknowledge={this.acknowledgeEnd} playSound={this.props.playSound} />
           }
           { this.state.victorious
             && !this.state.acknowledged
-            && <Message type="victory" acknowledge={this.acknowledgeEnd} />
-          } */}
+            && <Message type="victory" acknowledge={this.acknowledgeEnd} playSound={this.props.playSound} />
+          }
         </div>
         <div className="egginfo">
-          {`${this.state.flagged} ${this.state.flagged === 1 ? 'egg' : 'eggs'} marked out of ${this.state.width * this.state.height * this.state.amount} live ones`}
+          {`${this.state.flagged} ${this.state.flagged === 1 ? 'egg' : 'eggs'} marked out of 32 live ones`}
         </div>
+        {
+          this.state.acknowledged
+          && <Message
+            type="results"
+            results={this.state.results}
+            playSound={this.props.playSound}
+            dismiss={() => { window.location.reload(); }}
+          />
+        }
       </Fragment>
     );
   }

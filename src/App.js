@@ -9,6 +9,9 @@ import mark from './sounds/mark.mp3';
 import unmark from './sounds/unmark.mp3';
 import defeat from './sounds/defeat.mp3';
 import victory from './sounds/victory.mp3';
+import tutorialOpen from './sounds/tutorial-open.mp3';
+import tutorialClosed from './sounds/tutorial-closed.mp3';
+
 
 const sounds = {
   start,
@@ -18,13 +21,19 @@ const sounds = {
   unmark,
   defeat,
   victory,
+  tutorialOpen,
+  tutorialClosed,
 };
 
 class App extends Component {
+  state = {
+    results: null,
+  };
+
   playSound = (name = 'default') => {
     const audio = document.createElement('audio');
     audio.src = `${sounds[name]}`;
-    audio.volume = '0.15';
+    audio.volume = '0.20';
     audio.play();
   };
 

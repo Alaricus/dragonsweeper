@@ -22,6 +22,7 @@ img {
   cursor: url("./images/cursor-inactive.png"), default;
   font-family: "librebaskerville";
   letter-spacing: 0.01em;
+  color: #cccccc;
 }
 
 .title {
@@ -39,21 +40,8 @@ a {
   text-decoration: none;
 }
 
-.tooltip {
-  position: fixed;
-  z-index: 200;
-  background-color: rgba(0, 0, 0, 0.8);
-  border: 1px solid #daa520;
-  border-radius: 5px;
-  font-size: 15px;
-  padding: 10px 50px 10px 50px;
-  text-align: center;
-  line-height: 1.5;
-}
-
 .message {
   display: none;
-  position: fixed;
   z-index: 300;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid #daa520;
@@ -62,25 +50,9 @@ a {
   padding: 15px 50px 10px 50px;
   text-align: center;
   width: 630px;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.confirmation {
-  display: block;
-  position: fixed;
-  z-index: 400;
-  background-color: rgba(0, 0, 0, 0.8);
-  border: 1px solid #daa520;
-  border-radius: 5px;
-  font-size: 20px;
-  padding: 15px 50px 10px 50px;
-  text-align: center;
-  width: 500px;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .block {
@@ -93,10 +65,6 @@ a {
   z-index: 210;
 }
 
-.blocklight {
-  background-color: rgba(0, 0, 0, 0);
-}
-
 .messageButton {
   display: inline-block;
   margin-top: 20px;
@@ -104,16 +72,6 @@ a {
   border-radius: 5px;
   font-size: 20px;
   padding: 5px 10px 5px 10px;
-  text-align: center;
-}
-
-.MainInfo {
-  margin-left: 50px;
-  font-size: 38px;
-  letter-spacing: -0.03em;
-  padding: 0px 5px 0px 5px;
-  text-shadow: 0px 0px 4px #ffffff;
-  color: #000000;
   text-align: center;
 }
 
@@ -135,7 +93,6 @@ a {
 
 .egginfo {
   height: 40px;
-  color: #cccccc;
   font-size: 20px;
   text-shadow: -3px 0 4px #000000, 0 3px 4px #000000, 3px 0 4px #000000, 0 -3px 4px #000000;
   text-align: center;
