@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Cell from './Cell';
 // import Message from './Message';
-// import playSound from '../sfxPlayer';
 
 class Minesweeper extends Component {
   state = {
@@ -19,7 +18,7 @@ class Minesweeper extends Component {
   };
 
   componentDidMount() {
-    // playSound('start', this.props.sfx);
+    this.props.playSound('start');
     this.buildBoard();
   }
 
@@ -132,10 +131,10 @@ class Minesweeper extends Component {
       const arr = this.state.board;
       arr[r][c].number = warningNumber;
       if (warningNumber === 0) {
-        // playSound('clear', this.props.sfx);
+        this.props.playSound('clear');
         this.clearEmptySpace(r, c);
       }
-      // warningNumber > 0 && playSound('warning', this.props.sfx);
+      warningNumber > 0 && this.props.playSound('warning');
 
       this.setState({ board: arr, firstMove: false });
 
@@ -157,11 +156,11 @@ class Minesweeper extends Component {
         if (cell.flag) {
           arr[r][c].flag = false;
           flagged -= 1;
-          // playSound('mark', this.props.sfx);
+          this.props.playSound('mark');
         } else {
           arr[r][c].flag = true;
           flagged += 1;
-          // playSound('unmark', this.props.sfx);
+          this.props.playSound('unmark');
         }
 
         this.setState({ board: arr, flagged });

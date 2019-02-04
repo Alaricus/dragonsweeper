@@ -23,8 +23,11 @@
     "chrome 70"
   ],
   "author": "Alaric von Teplitz",
+  "license": "All rights belong to Alaric von Teplitz",
   "homepage": "https://alaricus.github.io/dragonsweeper",
   "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "terser": "^3.14.1"
   }
 }
