@@ -12,7 +12,6 @@ import victory from './sounds/victory.mp3';
 import tutorialOpen from './sounds/tutorial-open.mp3';
 import tutorialClosed from './sounds/tutorial-closed.mp3';
 
-
 const sounds = {
   start,
   clear,

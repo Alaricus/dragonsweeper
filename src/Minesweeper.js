@@ -191,8 +191,6 @@ class Minesweeper extends Component {
       perfect: true,
     });
 
-    results.tally[7] = this.state.bonusSeven ? results.tally[7] + 1 : results.tally[7];
-    results.tally[8] = this.state.bonusEight ? results.tally[8] + 1 : results.tally[8];
     return results;
   }
 
