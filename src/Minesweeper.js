@@ -1,31 +1,21 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Cell from './Cell';
 import Message from './Message';
 
-class Minesweeper extends Component {
-  state = {
-    board: [],
-    width: 16,
-    height: 10,
-    amount: 0.2,
-    flagged: 0,
-    firstMove: true,
-    defeated: false,
-    victorious: false,
-    acknowledged: false,
-    results: null,
-  };
+const Minesweeper = ({ playSound }) => {
+  const [board, setBoard] = useState([]);
+  const [flagged, setFlagged] = useState(0);
+  const [firstMove, setFirstMove] = useState(true);
+  const [defeated, setDefeated] = useState(false);
+  const [victorious, setVictorious] = useState(false);
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [results, setResults] = useState(null);
 
-  componentDidMount() {
-    this.props.playSound('start');
-    this.buildBoard();
-  }
+  const width = 16;
+  const height = 10;
+  const amount = 0.2;
 
-  getWarningNumber(row, col) {
-    return this.getValidNeighbors(row, col).reduce((acc, cur) => this.state.board[cur.row][cur.col].mine ? acc += 1 : acc, 0);
-  }
-
-  getValidNeighbors(r, c) {
+  const getValidNeighbors = (r, c) => {
     const row = parseInt(r, 10);
     const col = parseInt(c, 10);
     const possibleNeighbors = [
@@ -35,34 +25,37 @@ class Minesweeper extends Component {
     ];
 
     return possibleNeighbors.filter(item =>
-      item.row >= 0 && item.row < this.state.board.length
-      && item.col >= 0 && item.col < this.state.board[0].length
-      && this.state.board[item.row][item.col].number === null,
+      item.row >= 0 && item.row < board.length
+      && item.col >= 0 && item.col < board[0].length
+      && board[item.row][item.col].number === null,
     );
-  }
+  };
 
-  clearEmptySpace(row, col) {
-    const neighbors = this.getValidNeighbors(row, col);
+  // eslint-disable-next-line
+  const getWarningNumber = (row, col) => getValidNeighbors(row, col).reduce((acc, cur) => board[cur.row][cur.col].mine ? acc += 1 : acc, 0);
+
+  const clearEmptySpace = (row, col) => {
+    const neighbors = getValidNeighbors(row, col);
 
     if (neighbors.length === 0) { return; }
 
     neighbors.forEach((item) => {
-      const warningNumber = this.getWarningNumber(item.row, item.col);
-      const arr = this.state.board;
-      const cell = this.state.board[item.row][item.col];
+      const warningNumber = getWarningNumber(item.row, item.col);
+      const arr = board;
+      const cell = board[item.row][item.col];
       if (!cell.flag) {
         arr[item.row][item.col].number = warningNumber;
         if (warningNumber === 0) {
-          this.clearEmptySpace(item.row, item.col);
+          clearEmptySpace(item.row, item.col);
         }
-        this.setState({ board: arr });
+        setBoard(arr);
       }
     });
-  }
+  };
 
-  buildBoard() {
-    const w = this.state.width;
-    const h = this.state.height;
+  const buildBoard = () => {
+    const w = width;
+    const h = height;
     const arr = [];
 
     for (let i = 0; i < h; i++) {
@@ -80,17 +73,17 @@ class Minesweeper extends Component {
       arr.push(row);
     }
 
-    this.setState({ board: arr });
-  }
+    setBoard(arr);
+  };
 
-  placeMines(r, c) {
-    const w = this.state.width;
-    const h = this.state.height;
-    const mines = Math.ceil((w * h) * this.state.amount);
+  const placeMines = (r, c) => {
+    const w = width;
+    const h = height;
+    const mines = Math.ceil((w * h) * amount);
     let minesPlaced = 0;
-    const arr = this.state.board;
+    const arr = board;
 
-    const clickArea = this.getValidNeighbors(r, c);
+    const clickArea = getValidNeighbors(r, c);
     clickArea.push({ row: parseInt(r, 10), col: parseInt(c, 10) });
 
     while (minesPlaced < mines) {
@@ -105,79 +98,39 @@ class Minesweeper extends Component {
       }
     }
 
-    this.setState({ board: arr });
-  }
+    setBoard(arr);
+  };
 
-  handleClick = (e) => {
-    const r = e.target.dataset.row;
-    const c = e.target.dataset.col;
-
-    if (this.state.firstMove) {
-      this.placeMines(r, c);
-    }
-
-    if (!this.state.defeated && !this.state.victorious) {
-      const cell = this.state.board[r][c];
-
-      if (cell.flag) { return; }
-
-      if (cell.mine) {
-        this.handleDefeat();
-        return;
-      }
-
-      const warningNumber = this.getWarningNumber(r, c);
-      const arr = this.state.board;
-      arr[r][c].number = warningNumber;
-      if (warningNumber === 0) {
-        this.props.playSound('clear');
-        this.clearEmptySpace(r, c);
-      }
-      warningNumber > 0 && this.props.playSound('warning');
-
-      this.setState({ board: arr, firstMove: false });
-
-      this.checkVictoryCondition();
-    }
-  }
-
-  handleRightClick = (e) => {
+  const handleRightClick = (e) => {
     e.preventDefault();
 
-    if (!this.state.defeated && !this.state.victorious) {
+    if (!defeated && !victorious) {
       const r = e.target.dataset.row;
       const c = e.target.dataset.col;
-      const cell = this.state.board[r][c];
-      const arr = this.state.board;
-      let { flagged } = this.state;
+      const cell = board[r][c];
+      const arr = board;
+      let isFlagged = flagged;
 
       if (cell.number === null) {
         if (cell.flag) {
           arr[r][c].flag = false;
-          flagged -= 1;
-          this.props.playSound('mark');
+          isFlagged -= 1;
+          playSound('mark');
         } else {
           arr[r][c].flag = true;
-          flagged += 1;
-          this.props.playSound('unmark');
+          isFlagged += 1;
+          playSound('unmark');
         }
 
-        this.setState({ board: arr, flagged });
+        setBoard(arr);
+        setFlagged(isFlagged);
       }
     }
-  }
+  };
 
-  checkVictoryCondition() {
-    const flat = this.state.board.reduce((acc, cur) => [...acc, ...cur], []);
-    const won = flat.every(item => item.number !== null || item.mine);
-    if (won) {
-      this.setState({ victorious: true, results: this.countResults(true) });
-    }
-  }
-
-  countResults(victory) {
-    const flat = this.state.board.reduce((acc, cur) => [...acc, ...cur], []);
-    const results = flat.reduce((acc, cur) => {
+  const countResults = (victory) => {
+    const flat = board.reduce((acc, cur) => [...acc, ...cur], []);
+    const gameResults = flat.reduce((acc, cur) => {
       if (cur.number > 0) {
         acc.tally[cur.number] += 1;
       }
@@ -191,65 +144,114 @@ class Minesweeper extends Component {
       perfect: true,
     });
 
-    return results;
-  }
+    return gameResults;
+  };
 
-  handleDefeat() {
-    this.setState({ defeated: true, results: this.countResults(false) });
-  }
+  const checkVictoryCondition = () => {
+    const flat = board.reduce((acc, cur) => [...acc, ...cur], []);
+    const won = flat.every(item => item.number !== null || item.mine);
+    if (won) {
+      setVictorious(true);
+      setResults(countResults(true));
+    }
+  };
 
-  acknowledgeEnd = () => {
-    this.setState({ acknowledged: true });
-  }
+  const handleDefeat = () => {
+    setDefeated(true);
+    setResults(countResults(false));
+  };
 
-  render() {
-    return (
-      <Fragment>
-        <div className="field">
-          {
-            this.state.board.map((row, rIndex) => (
-              <div className="row" key={`row${rIndex}`}>
-                {
-                  row.map((cell, cIndex) => (
-                    <Cell
-                      defeated={this.state.defeated ? 1 : 0}
-                      victorious={this.state.victorious ? 1 : 0}
-                      handleLeftClick={this.handleClick}
-                      handleRightClick={this.handleRightClick}
-                      rIndex={rIndex}
-                      cIndex={cIndex}
-                      cell={cell}
-                      key={`${rIndex}-${cIndex}`}
-                    />
-                  ))
-                }
-              </div>
-            ))
-          }
-          { this.state.defeated
-            && !this.state.acknowledged
-            && <Message type="defeat" acknowledge={this.acknowledgeEnd} playSound={this.props.playSound} />
-          }
-          { this.state.victorious
-            && !this.state.acknowledged
-            && <Message type="victory" acknowledge={this.acknowledgeEnd} playSound={this.props.playSound} />
-          }
-        </div>
-        <div className="egginfo">
-          {`${this.state.flagged} ${this.state.flagged === 1 ? 'egg' : 'eggs'} marked out of 32 live ones`}
-        </div>
+  const handleClick = (e) => {
+    const r = e.target.dataset.row;
+    const c = e.target.dataset.col;
+
+    if (firstMove) {
+      placeMines(r, c);
+    }
+
+    if (!defeated && !victorious) {
+      const cell = board[r][c];
+
+      if (cell.flag) { return; }
+
+      if (cell.mine) {
+        handleDefeat();
+        return;
+      }
+
+      const warningNumber = getWarningNumber(r, c);
+      const arr = board;
+      arr[r][c].number = warningNumber;
+      if (warningNumber === 0) {
+        playSound('clear');
+        clearEmptySpace(r, c);
+      }
+      warningNumber > 0 && playSound('warning');
+
+      setBoard(arr);
+      setFirstMove(false);
+
+      checkVictoryCondition();
+    }
+  };
+
+  const acknowledgeEnd = () => {
+    setAcknowledged(true);
+  };
+
+  useEffect(() => {
+    playSound('start');
+    buildBoard();
+  }, [true]);
+
+  return (
+    <Fragment>
+      <div className="field">
         {
-          this.state.acknowledged
-          && <Message
-            type="results"
-            results={this.state.results}
-            playSound={this.props.playSound}
-            dismiss={() => { window.location.reload(); }}
-          />
+          board.map((row, rIndex) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div className="row" key={`row${rIndex}`}>
+              {
+                row.map((cell, cIndex) => (
+                  <Cell
+                    defeated={defeated ? 1 : 0}
+                    victorious={victorious ? 1 : 0}
+                    handleLeftClick={handleClick}
+                    handleRightClick={handleRightClick}
+                    rIndex={rIndex}
+                    cIndex={cIndex}
+                    cell={cell}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={`${rIndex}-${cIndex}`}
+                  />
+                ))
+              }
+            </div>
+          ))
         }
-      </Fragment>
-    );
-  }
-}
+        { defeated
+          && !acknowledged
+          && <Message type="defeat" acknowledge={acknowledgeEnd} playSound={playSound} />
+        }
+        { victorious
+          && !acknowledged
+          && <Message type="victory" acknowledge={acknowledgeEnd} playSound={playSound} />
+        }
+      </div>
+      <div className="egginfo">
+        {`${flagged} ${flagged === 1 ? 'egg' : 'eggs'} marked out of 32 live ones`}
+      </div>
+      {
+        acknowledged
+        && <Message
+          type="results"
+          results={results}
+          playSound={playSound}
+          dismiss={() => { window.location.reload(); }}
+        />
+      }
+    </Fragment>
+  );
+};
 
 export default Minesweeper;
