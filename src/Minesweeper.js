@@ -214,7 +214,7 @@ class Minesweeper extends Component {
                     <Cell
                       defeated={this.state.defeated ? 1 : 0}
                       victorious={this.state.victorious ? 1 : 0}
-                      handleClick={this.handleClick}
+                      handleLeftClick={this.handleClick}
                       handleRightClick={this.handleRightClick}
                       rIndex={rIndex}
                       cIndex={cIndex}

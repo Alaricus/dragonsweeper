@@ -1,59 +1,65 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export default class Cell extends Component {
-  state = {
-    hovering: false,
-  }
+const Cell = ({
+  cell,
+  defeated,
+  victorious,
+  handleLeftClick,
+  handleRightClick,
+  rIndex,
+  cIndex,
+}) => {
+  const [hovering, setHovering] = useState(false);
 
-  handleMouseEnter = () => {
-    this.props.cell.number === null
-    && !this.props.defeated
-    && !this.props.victorious
-    && this.setState({ hovering: true });
-  }
+  const handleMouseEnter = () => {
+    cell.number === null
+    && !defeated
+    && !victorious
+    && setHovering(true);
+  };
 
-  handleMouseLeave = () => {
-    this.setState({ hovering: false });
-  }
+  const handleMouseLeave = () => {
+    setHovering(false);
+  };
 
-  handleClick = (e) => {
-    this.setState({ hovering: false });
-    this.props.handleClick(e);
-  }
+  const handleClick = (e) => {
+    setHovering(false);
+    handleLeftClick(e);
+  };
 
-  render() {
-    return (
+  return (
+    <div
+      className={`
+        ${`floor${cell.floor}`}
+        ${hovering ? 'hover' : 'nohover'}
+      `}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div
+        defeated={defeated}
+        victorious={victorious}
+        onClick={handleClick}
+        onContextMenu={handleRightClick}
         className={`
-          ${`floor${this.props.cell.floor}`}
-          ${this.state.hovering ? 'hover' : 'nohover'}
+          ${`cell${cell.egg}`}
+          ${cell.number !== null && `open${cell.number}`}
+          ${cell.number === null && 'activeCursor'}
+          ${defeated && cell.mine && `dragon${cell.dragon}`}
         `}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
+        data-row={rIndex}
+        data-col={cIndex}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div
-          defeated={this.props.defeated}
-          victorious={this.props.victorious}
-          onClick={this.handleClick}
-          onContextMenu={this.props.handleRightClick}
           className={`
-            ${`cell${this.props.cell.egg}`}
-            ${this.props.cell.number !== null && `open${this.props.cell.number}`}
-            ${this.props.cell.number === null && 'activeCursor'}
-            ${this.props.defeated && this.props.cell.mine && `dragon${this.props.cell.dragon}`}
+            ${cell.flag && !defeated ? 'flag' : 'noflag'}
           `}
-          data-row={this.props.rIndex}
-          data-col={this.props.cIndex}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <div
-            className={`
-              ${this.props.cell.flag && !this.props.defeated? 'flag' : 'noflag'}
-            `}
-          />
-        </div>
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Cell;
