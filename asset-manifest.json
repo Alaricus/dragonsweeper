@@ -1,9 +1,9 @@
 {
-  "main.css": "/dragonsweeper/static/css/main.a15cf654.chunk.css",
-  "main.js": "/dragonsweeper/static/js/main.586c4986.chunk.js",
-  "main.js.map": "/dragonsweeper/static/js/main.586c4986.chunk.js.map",
-  "static/js/1.6f6977c8.chunk.js": "/dragonsweeper/static/js/1.6f6977c8.chunk.js",
-  "static/js/1.6f6977c8.chunk.js.map": "/dragonsweeper/static/js/1.6f6977c8.chunk.js.map",
+  "main.css": "/dragonsweeper/static/css/main.0683c038.chunk.css",
+  "main.js": "/dragonsweeper/static/js/main.4c1e91f4.chunk.js",
+  "main.js.map": "/dragonsweeper/static/js/main.4c1e91f4.chunk.js.map",
+  "static/js/1.f5597ad5.chunk.js": "/dragonsweeper/static/js/1.f5597ad5.chunk.js",
+  "static/js/1.f5597ad5.chunk.js.map": "/dragonsweeper/static/js/1.f5597ad5.chunk.js.map",
   "runtime~main.js": "/dragonsweeper/static/js/runtime~main.65bb5a44.js",
   "runtime~main.js.map": "/dragonsweeper/static/js/runtime~main.65bb5a44.js.map",
   "static/media/App.css": "/dragonsweeper/static/media/librebaskerville.27b9efe7.ttf",
@@ -16,8 +16,8 @@
   "static/media/victory.mp3": "/dragonsweeper/static/media/victory.a601b804.mp3",
   "static/media/tutorial-open.mp3": "/dragonsweeper/static/media/tutorial-open.bbc18528.mp3",
   "static/media/tutorial-closed.mp3": "/dragonsweeper/static/media/tutorial-closed.2fa69cd5.mp3",
-  "static/css/main.a15cf654.chunk.css.map": "/dragonsweeper/static/css/main.a15cf654.chunk.css.map",
+  "static/css/main.0683c038.chunk.css.map": "/dragonsweeper/static/css/main.0683c038.chunk.css.map",
   "index.html": "/dragonsweeper/index.html",
-  "precache-manifest.58942d15298b2da8dd6636584ab0c38c.js": "/dragonsweeper/precache-manifest.58942d15298b2da8dd6636584ab0c38c.js",
+  "precache-manifest.f1ec2378cb0d0b6fbcdd443e2699f472.js": "/dragonsweeper/precache-manifest.f1ec2378cb0d0b6fbcdd443e2699f472.js",
   "service-worker.js": "/dragonsweeper/service-worker.js"
 }
