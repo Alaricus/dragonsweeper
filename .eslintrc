@@ -1,6 +1,9 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "function-paren-newline": 0,
     "import/no-extraneous-dependencies": 0,
@@ -21,7 +24,8 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/mouse-events-have-key-events": "off",
     "jsx-a11y/media-has-caption": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error"
   },
   "env": {
     "browser": true,
