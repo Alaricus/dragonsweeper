@@ -11,6 +11,12 @@ const Minesweeper = ({ playSound }) => {
   const [acknowledged, setAcknowledged] = useState(false);
   const [results, setResults] = useState(null);
 
+  // This sucks, but I gained a better understanding of hooks.
+  // The next step is to rewrite the whole thing with this in mind.
+  // Using mutated reference rypes will not re-render tha page, so
+  // setBoard (for instance) will need to always be a new array (deep cloned)
+  const [hack, setHack] = useState(true);
+
   const width = 16;
   const height = 10;
   const amount = 0.2;
@@ -48,7 +54,7 @@ const Minesweeper = ({ playSound }) => {
         if (warningNumber === 0) {
           clearEmptySpace(item.row, item.col);
         }
-        setBoard(arr);
+        // setBoard(arr);
       }
     });
   };
@@ -185,6 +191,7 @@ const Minesweeper = ({ playSound }) => {
       if (warningNumber === 0) {
         playSound('clear');
         clearEmptySpace(r, c);
+        setHack(!hack);
       }
       warningNumber > 0 && playSound('warning');
 
@@ -202,7 +209,7 @@ const Minesweeper = ({ playSound }) => {
   useEffect(() => {
     playSound('start');
     buildBoard();
-  }, [true]);
+  }, []);
 
   return (
     <Fragment>
