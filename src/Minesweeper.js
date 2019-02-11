@@ -11,17 +11,11 @@ const Minesweeper = ({ playSound }) => {
   const [acknowledged, setAcknowledged] = useState(false);
   const [results, setResults] = useState(null);
 
-  // This sucks, but I gained a better understanding of hooks.
-  // The next step is to rewrite the whole thing with this in mind.
-  // Using mutated reference rypes will not re-render tha page, so
-  // setBoard (for instance) will need to always be a new array (deep cloned)
-  const [hack, setHack] = useState(true);
-
   const width = 16;
   const height = 10;
   const amount = 0.2;
 
-  const getValidNeighbors = (r, c) => {
+  const getValidNeighbors = (r, c, arr) => {
     const row = parseInt(r, 10);
     const col = parseInt(c, 10);
     const possibleNeighbors = [
@@ -31,32 +25,33 @@ const Minesweeper = ({ playSound }) => {
     ];
 
     return possibleNeighbors.filter(item =>
-      item.row >= 0 && item.row < board.length
-      && item.col >= 0 && item.col < board[0].length
-      && board[item.row][item.col].number === null,
+      item.row >= 0 && item.row < arr.length
+      && item.col >= 0 && item.col < arr[0].length
+      && arr[item.row][item.col].number === null,
     );
   };
 
   // eslint-disable-next-line
-  const getWarningNumber = (row, col) => getValidNeighbors(row, col).reduce((acc, cur) => board[cur.row][cur.col].mine ? acc += 1 : acc, 0);
+  const getWarningNumber = (row, col, arr) => getValidNeighbors(row, col, arr).reduce((acc, cur) => arr[cur.row][cur.col].mine ? acc += 1 : acc, 0);
 
-  const clearEmptySpace = (row, col) => {
-    const neighbors = getValidNeighbors(row, col);
+  const clearEmptySpace = (row, col, arr) => {
+    const neighbors = getValidNeighbors(row, col, arr);
+    let arrToClear = arr;
 
-    if (neighbors.length === 0) { return; }
+    if (neighbors.length === 0) { return arrToClear; }
 
     neighbors.forEach((item) => {
-      const warningNumber = getWarningNumber(item.row, item.col);
-      const arr = board;
-      const cell = board[item.row][item.col];
+      const warningNumber = getWarningNumber(item.row, item.col, arr);
+      const cell = arr[item.row][item.col];
       if (!cell.flag) {
-        arr[item.row][item.col].number = warningNumber;
+        arrToClear[item.row][item.col].number = warningNumber;
         if (warningNumber === 0) {
-          clearEmptySpace(item.row, item.col);
+          arrToClear = clearEmptySpace(item.row, item.col, arrToClear);
         }
-        // setBoard(arr);
       }
     });
+
+    return arrToClear;
   };
 
   const buildBoard = () => {
@@ -79,7 +74,7 @@ const Minesweeper = ({ playSound }) => {
       arr.push(row);
     }
 
-    setBoard(arr);
+    return arr;
   };
 
   const placeMines = (r, c) => {
@@ -87,9 +82,9 @@ const Minesweeper = ({ playSound }) => {
     const h = height;
     const mines = Math.ceil((w * h) * amount);
     let minesPlaced = 0;
-    const arr = board;
+    const arr = JSON.parse(JSON.stringify(board));
 
-    const clickArea = getValidNeighbors(r, c);
+    const clickArea = getValidNeighbors(r, c, arr);
     clickArea.push({ row: parseInt(r, 10), col: parseInt(c, 10) });
 
     while (minesPlaced < mines) {
@@ -104,7 +99,7 @@ const Minesweeper = ({ playSound }) => {
       }
     }
 
-    setBoard(arr);
+    return arr;
   };
 
   const handleRightClick = (e) => {
@@ -113,8 +108,8 @@ const Minesweeper = ({ playSound }) => {
     if (!defeated && !victorious) {
       const r = e.target.dataset.row;
       const c = e.target.dataset.col;
-      const cell = board[r][c];
-      const arr = board;
+      const cell = JSON.parse(JSON.stringify(board))[r][c];
+      const arr = JSON.parse(JSON.stringify(board));
       let isFlagged = flagged;
 
       if (cell.number === null) {
@@ -170,9 +165,11 @@ const Minesweeper = ({ playSound }) => {
   const handleClick = (e) => {
     const r = e.target.dataset.row;
     const c = e.target.dataset.col;
+    let arr = JSON.parse(JSON.stringify(board));
 
     if (firstMove) {
-      placeMines(r, c);
+      arr = placeMines(r, c);
+      setFirstMove(false);
     }
 
     if (!defeated && !victorious) {
@@ -185,19 +182,15 @@ const Minesweeper = ({ playSound }) => {
         return;
       }
 
-      const warningNumber = getWarningNumber(r, c);
-      const arr = board;
+      const warningNumber = getWarningNumber(r, c, arr);
       arr[r][c].number = warningNumber;
       if (warningNumber === 0) {
         playSound('clear');
-        clearEmptySpace(r, c);
-        setHack(!hack);
+        arr = clearEmptySpace(r, c, arr);
       }
       warningNumber > 0 && playSound('warning');
 
       setBoard(arr);
-      setFirstMove(false);
-
       checkVictoryCondition();
     }
   };
@@ -208,7 +201,7 @@ const Minesweeper = ({ playSound }) => {
 
   useEffect(() => {
     playSound('start');
-    buildBoard();
+    setBoard(buildBoard());
   }, []);
 
   return (

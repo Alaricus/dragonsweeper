@@ -38,6 +38,8 @@ img {
 a {
   color: #daa520;
   text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #daa520;
 }
 
 .message {
