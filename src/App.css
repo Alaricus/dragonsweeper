@@ -44,6 +44,7 @@ a {
 
 .message {
   display: none;
+  position: fixed;
   z-index: 300;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid #daa520;
@@ -52,9 +53,9 @@ a {
   padding: 15px 50px 10px 50px;
   text-align: center;
   width: 630px;
-  margin-top: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .block {

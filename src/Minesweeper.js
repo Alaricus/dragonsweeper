@@ -31,18 +31,25 @@ const Minesweeper = ({ playSound }) => {
     );
   };
 
-  // eslint-disable-next-line
-  const getWarningNumber = (row, col, arr) => getValidNeighbors(row, col, arr).reduce((acc, cur) => arr[cur.row][cur.col].mine ? acc += 1 : acc, 0);
+  const getWarningNumber = (row, col, arr) => {
+    const validNeighbors = getValidNeighbors(row, col, arr);
+    const count = validNeighbors.reduce((acc, cur) => {
+      const cell = arr[cur.row][cur.col];
+      acc = cell.mine ? acc + 1 : acc; // eslint-disable-line no-param-reassign
+      return acc;
+    }, 0);
+    return count;
+  };
 
   const clearEmptySpace = (row, col, arr) => {
-    const neighbors = getValidNeighbors(row, col, arr);
     let arrToClear = arr;
+    const neighbors = getValidNeighbors(row, col, arrToClear);
 
     if (neighbors.length === 0) { return arrToClear; }
 
     neighbors.forEach((item) => {
-      const warningNumber = getWarningNumber(item.row, item.col, arr);
-      const cell = arr[item.row][item.col];
+      const warningNumber = getWarningNumber(item.row, item.col, arrToClear);
+      const cell = arrToClear[item.row][item.col];
       if (!cell.flag) {
         arrToClear[item.row][item.col].number = warningNumber;
         if (warningNumber === 0) {
@@ -209,6 +216,7 @@ const Minesweeper = ({ playSound }) => {
       <div className="field">
         {
           board.map((row, rIndex) => (
+            // It's fine to use indices here because the array shape never changes
             // eslint-disable-next-line react/no-array-index-key
             <div className="row" key={`row${rIndex}`}>
               {
