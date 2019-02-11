@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/dragonsweeper/static/media/warning.241dafeb.mp3"
   },
   {
-    "revision": "4c1e91f426d5c574389d",
-    "url": "/dragonsweeper/static/css/main.0683c038.chunk.css"
+    "revision": "2c0b3b54883f42bdef49",
+    "url": "/dragonsweeper/static/css/main.65a45f54.chunk.css"
   },
   {
-    "revision": "f5597ad54ef56fc35082",
-    "url": "/dragonsweeper/static/js/1.f5597ad5.chunk.js"
+    "revision": "9f560343402c8227a45d",
+    "url": "/dragonsweeper/static/js/1.9f560343.chunk.js"
   },
   {
     "revision": "65bb5a448961150b0550",
@@ -40,8 +40,8 @@ self.__precacheManifest = [
     "url": "/dragonsweeper/static/media/clear.93231d19.mp3"
   },
   {
-    "revision": "4c1e91f426d5c574389d",
-    "url": "/dragonsweeper/static/js/main.4c1e91f4.chunk.js"
+    "revision": "2c0b3b54883f42bdef49",
+    "url": "/dragonsweeper/static/js/main.2c0b3b54.chunk.js"
   },
   {
     "revision": "ab98e5d7e95a9aa3e0b4f54f62d9e268",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
     "url": "/dragonsweeper/static/media/librebaskerville.27b9efe7.ttf"
   },
   {
-    "revision": "9b47c1b91279c718d7a541d00f5f6568",
+    "revision": "f55d21502b0a2e58e5c854f27d39c25f",
     "url": "/dragonsweeper/index.html"
   }
 ];
