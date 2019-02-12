@@ -155,8 +155,8 @@ const Minesweeper = ({ playSound }) => {
     return gameResults;
   };
 
-  const checkVictoryCondition = () => {
-    const flat = board.reduce((acc, cur) => [...acc, ...cur], []);
+  const checkVictoryCondition = (arr) => {
+    const flat = arr.reduce((acc, cur) => [...acc, ...cur], []);
     const won = flat.every(item => item.number !== null || item.mine);
     if (won) {
       setVictorious(true);
@@ -174,16 +174,15 @@ const Minesweeper = ({ playSound }) => {
     const c = e.target.dataset.col;
     let arr = JSON.parse(JSON.stringify(board));
 
+    const cell = arr[r][c];
+    if (cell.flag) { return; }
+
     if (firstMove) {
       arr = placeMines(r, c);
       setFirstMove(false);
     }
 
     if (!defeated && !victorious) {
-      const cell = board[r][c];
-
-      if (cell.flag) { return; }
-
       if (cell.mine) {
         handleDefeat();
         return;
@@ -198,7 +197,7 @@ const Minesweeper = ({ playSound }) => {
       warningNumber > 0 && playSound('warning');
 
       setBoard(arr);
-      checkVictoryCondition();
+      checkVictoryCondition(arr);
     }
   };
 
