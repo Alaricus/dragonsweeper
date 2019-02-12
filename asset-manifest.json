@@ -1,7 +1,7 @@
 {
   "main.css": "/dragonsweeper/static/css/main.65a45f54.chunk.css",
-  "main.js": "/dragonsweeper/static/js/main.2c0b3b54.chunk.js",
-  "main.js.map": "/dragonsweeper/static/js/main.2c0b3b54.chunk.js.map",
+  "main.js": "/dragonsweeper/static/js/main.e419784d.chunk.js",
+  "main.js.map": "/dragonsweeper/static/js/main.e419784d.chunk.js.map",
   "static/js/1.9f560343.chunk.js": "/dragonsweeper/static/js/1.9f560343.chunk.js",
   "static/js/1.9f560343.chunk.js.map": "/dragonsweeper/static/js/1.9f560343.chunk.js.map",
   "runtime~main.js": "/dragonsweeper/static/js/runtime~main.65bb5a44.js",
@@ -18,6 +18,6 @@
   "static/media/tutorial-closed.mp3": "/dragonsweeper/static/media/tutorial-closed.2fa69cd5.mp3",
   "static/css/main.65a45f54.chunk.css.map": "/dragonsweeper/static/css/main.65a45f54.chunk.css.map",
   "index.html": "/dragonsweeper/index.html",
-  "precache-manifest.bba3027b79384b8803219b2f9f0a82cb.js": "/dragonsweeper/precache-manifest.bba3027b79384b8803219b2f9f0a82cb.js",
+  "precache-manifest.e29b31b8ce539e6d02aad98de10c2a18.js": "/dragonsweeper/precache-manifest.e29b31b8ce539e6d02aad98de10c2a18.js",
   "service-worker.js": "/dragonsweeper/service-worker.js"
 }
