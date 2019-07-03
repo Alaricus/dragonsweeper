@@ -15,7 +15,6 @@
     "object-curly-newline": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 
-    "linebreak-style": ["error", "windows"],
     "no-unused-expressions": ["error", { "allowShortCircuit": true }],
 
     "jsx-a11y/anchor-is-valid": 2,

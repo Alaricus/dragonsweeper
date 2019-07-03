@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import line from './images/line.png';
 import gem1 from './images/open1.png';
@@ -25,55 +25,63 @@ const icons = {
   marked,
 };
 
-class Message extends Component {
-  processProps = () => {
-    if (this.props.type === 'defeat') {
-      this.props.playSound('defeat');
-      this.displayStyle = { display: 'block' };
-      this.messageTitle = 'Oh no!';
-      this.messageBody = (
+const Message = (props) => {
+  const { type, results, playSound, acknowledge, dismiss } = props;
+
+  let displayStyle = null;
+  let messageTitle = null;
+  let messageBody = null;
+  let buttonText = null;
+  let closeMessage = null;
+
+  const processProps = () => {
+    if (type === 'defeat') {
+      playSound('defeat');
+      displayStyle = { display: 'block' };
+      messageTitle = 'Oh no!';
+      messageBody = (
         <p style={{ textAlign: 'justify', textAlignLast: 'left', lineHeight: '1.5' }}>
-          You woke up the hatchlings! Adorable as they are, you really don't want to be here
+          You woke up the hatchlings! Adorable as they are, you really don&apos;t want to be here
           when their mother shows up to greet them. Take what gems you found and make your escape!
         </p>
       );
-      this.buttonText = 'Run!';
-      this.closeMessage = () => {
-        this.props.playSound('tutorialClosed');
-        this.props.acknowledge();
+      buttonText = 'Run!';
+      closeMessage = () => {
+        playSound('tutorialClosed');
+        acknowledge();
       };
     }
 
-    if (this.props.type === 'victory') {
-      this.props.playSound('victory');
-      this.displayStyle = { display: 'block' };
-      this.messageTitle = 'A craftly little ... foreman!';
-      this.messageBody = (
+    if (type === 'victory') {
+      playSound('victory');
+      displayStyle = { display: 'block' };
+      messageTitle = 'A craftly little ... foreman!';
+      messageBody = (
         <p style={{ textAlign: 'justify', textAlignLast: 'left', lineHeight: '1.5' }}>
           You did it! You managed to collect all the gems without waking up the hatchlings! That
-          took some skill for sure. Go on then, enjoy your newfound riches. You've earned them!
+          took some skill for sure. Go on then, enjoy your newfound riches. You&apos;ve earned them!
         </p>
       );
-      this.buttonText = 'Leave';
-      this.closeMessage = () => {
-        this.props.playSound('tutorialClosed');
-        this.props.acknowledge();
+      buttonText = 'Leave';
+      closeMessage = () => {
+        playSound('tutorialClosed');
+        acknowledge();
       };
     }
 
-    if (this.props.type === 'results') {
-      this.props.playSound('tutorialOpen');
-      this.displayStyle = { display: 'block', top: '100px' };
-      this.messageTitle = 'Loot Report';
-      this.messageBody = Object.keys(this.props.results.tally).map((gem) => {
-        if (this.props.results.tally[gem] > 0) {
+    if (type === 'results') {
+      playSound('tutorialOpen');
+      displayStyle = { display: 'block', top: '100px' };
+      messageTitle = 'Loot Report';
+      messageBody = Object.keys(results.tally).map((gem) => {
+        if (results.tally[gem] > 0) {
           return (
             <div key={gem} className="loot">
               <div className="gem">
                 <img src={icons[gem]} alt={`gem${gem}`} style={{ verticalAlign: 'middle' }} />
               </div>
               <div className="price">
-                {` x ${this.props.results.tally[gem]}`}
+                {` x ${results.tally[gem]}`}
               </div>
             </div>
           );
@@ -81,55 +89,54 @@ class Message extends Component {
         return null;
       });
 
-      this.messageBody.push(
+      messageBody.push(
         <div className="loot" key="slient">
           <div className="gem">
             <img src={icons.dragon} alt="silent" style={{ verticalAlign: 'middle' }} />
           </div>
           <div className="price">
-            { this.props.results.silent ? 'eggs didn\'t hatch' : 'dragons hatched' }
+            { results.silent ? 'eggs didn\'t hatch' : 'dragons hatched' }
           </div>
         </div>,
       );
 
-      this.messageBody.push(
+      messageBody.push(
         <div className="loot" key="perfect">
           <div className="gem">
             <img src={icons.marked} alt="perfect" style={{ verticalAlign: 'middle' }} />
           </div>
           <div className="price">
-            { this.props.results.perfect ? 'all eggs marked' : 'not every living egg was marked' }
+            { results.perfect ? 'all eggs marked' : 'not every living egg was marked' }
           </div>
         </div>,
       );
 
-      this.buttonText = 'Very Well';
-      this.closeMessage = () => {
-        this.props.playSound('tutorialClosed');
-        this.props.dismiss();
+      buttonText = 'Very Well';
+      closeMessage = () => {
+        playSound('tutorialClosed');
+        dismiss();
       };
     }
-  }
+  };
 
-  render() {
-    this.processProps();
-    return (
-      <div
-        className={`
-          block
-          ${this.props.type === 'defeat' && 'blocklight'}
-        `}
-        onClick={() => { this.props.type === 'settings' && this.closeMessage(); }}
-      >
-        <div className="message" style={this.displayStyle} onClick={(e) => { e.stopPropagation(); }}>
-          <div className="MinerAmount">{this.messageTitle}</div>
-          <img alt="line" src={line} />
-          {this.messageBody}
-          <div className="messageButton activeCursor" onClick={this.closeMessage}>{this.buttonText}</div>
-        </div>
+  processProps();
+
+  return (
+    <div
+      className={`
+        block
+        ${type === 'defeat' && 'blocklight'}
+      `}
+      onClick={() => { type === 'settings' && closeMessage(); }}
+    >
+      <div className="message" style={displayStyle} onClick={(e) => { e.stopPropagation(); }}>
+        <div className="MinerAmount">{messageTitle}</div>
+        <img alt="line" src={line} />
+        {messageBody}
+        <div className="messageButton activeCursor" onClick={closeMessage}>{buttonText}</div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Message;
