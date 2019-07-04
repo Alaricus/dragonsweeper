@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import line from './images/line.png';
 import gem1 from './images/open1.png';
@@ -26,7 +27,8 @@ const icons = {
 };
 
 const Message = (props) => {
-  const { type, results, playSound, acknowledge, dismiss } = props;
+  const { type, results, playSound, acknowledge } = props;
+  const dismiss = () => { window.location.reload(); };
 
   let displayStyle = null;
   let messageTitle = null;
@@ -137,6 +139,44 @@ const Message = (props) => {
       </div>
     </div>
   );
+};
+
+Message.defaultProps = {
+  results: {
+    perfect: false,
+    silent: false,
+    tally: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+    },
+  },
+  acknowledge: () => {},
+};
+
+Message.propTypes = {
+  type: PropTypes.string.isRequired,
+  playSound: PropTypes.func.isRequired,
+  results: PropTypes.shape({
+    perfect: PropTypes.bool,
+    silent: PropTypes.bool,
+    tally: PropTypes.shape({
+      1: PropTypes.number,
+      2: PropTypes.number,
+      3: PropTypes.number,
+      4: PropTypes.number,
+      5: PropTypes.number,
+      6: PropTypes.number,
+      7: PropTypes.number,
+      8: PropTypes.number,
+    }),
+  }),
+  acknowledge: PropTypes.func,
 };
 
 export default Message;

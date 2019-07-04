@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Cell = ({
   cell,
@@ -60,6 +61,23 @@ const Cell = ({
       </div>
     </div>
   );
+};
+
+Cell.propTypes = {
+  cell: PropTypes.shape({
+    dragon: PropTypes.number.isRequired,
+    egg: PropTypes.number.isRequired,
+    flag: PropTypes.bool.isRequired,
+    floor: PropTypes.number.isRequired,
+    mine: PropTypes.bool.isRequired,
+    number: PropTypes.number,
+  }).isRequired,
+  defeated: PropTypes.number.isRequired,
+  victorious: PropTypes.number.isRequired,
+  handleLeftClick: PropTypes.func.isRequired,
+  handleRightClick: PropTypes.func.isRequired,
+  rIndex: PropTypes.number.isRequired,
+  cIndex: PropTypes.number.isRequired,
 };
 
 export default Cell;

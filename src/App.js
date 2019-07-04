@@ -34,7 +34,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <p className="title">The Dragonsweeper minigame from <a href="https://store.steampowered.com/app/740790/Goldmine/">Goldmine</a></p>
+      <p className="title">
+        <span>The Dragonsweeper minigame from </span>
+        <a href="https://store.steampowered.com/app/740790/Goldmine/">Goldmine</a>
+      </p>
       <Minesweeper playSound={playSound} />
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Cell from './Cell';
 import Message from './Message';
 
@@ -24,8 +25,7 @@ const Minesweeper = ({ playSound }) => {
       { row: row + 1, col: col - 1 }, { row: row + 1, col }, { row: row + 1, col: col + 1 },
     ];
 
-    return possibleNeighbors.filter(item =>
-      item.row >= 0 && item.row < arr.length
+    return possibleNeighbors.filter(item => item.row >= 0 && item.row < arr.length
       && item.col >= 0 && item.col < arr[0].length
       && arr[item.row][item.col].number === null,
     );
@@ -250,15 +250,20 @@ const Minesweeper = ({ playSound }) => {
       </div>
       {
         acknowledged
-        && <Message
-          type="results"
-          results={results}
-          playSound={playSound}
-          dismiss={() => { window.location.reload(); }}
-        />
+        && (
+          <Message
+            type="results"
+            results={results}
+            playSound={playSound}
+          />
+        )
       }
     </Fragment>
   );
+};
+
+Minesweeper.propTypes = {
+  playSound: PropTypes.func.isRequired,
 };
 
 export default Minesweeper;
