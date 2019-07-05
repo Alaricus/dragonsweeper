@@ -246,7 +246,7 @@ const Minesweeper = ({ playSound }) => {
         }
       </div>
       <div className="egginfo">
-        {`${flagged} ${flagged === 1 ? 'egg' : 'eggs'} marked out of 32 live ones`}
+        {`${flagged} ${flagged === 1 ? 'egg' : 'eggs'} marked out of ${Math.ceil((width * height) * amount)} live ones`}
       </div>
       {
         acknowledged
