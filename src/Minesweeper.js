@@ -136,8 +136,8 @@ const Minesweeper = ({ playSound }) => {
     }
   };
 
-  const countResults = (victory) => {
-    const flat = board.reduce((acc, cur) => [...acc, ...cur], []);
+  const countResults = (arr, victory) => {
+    const flat = arr.reduce((acc, cur) => [...acc, ...cur], []);
     const gameResults = flat.reduce((acc, cur) => {
       if (cur.number > 0) {
         acc.tally[cur.number] += 1;
@@ -160,7 +160,7 @@ const Minesweeper = ({ playSound }) => {
     const won = flat.every(item => item.number !== null || item.mine);
     if (won) {
       setVictorious(true);
-      setResults(countResults(true));
+      setResults(countResults(arr, true));
     }
   };
 
