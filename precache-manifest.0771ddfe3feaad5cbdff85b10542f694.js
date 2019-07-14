@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2011b47d7789ac7a24833073767c0967",
+    "revision": "111b6a47a889067dd2d387bbca01fc62",
     "url": "/dragonsweeper/index.html"
   },
   {
-    "revision": "859e3cfede1760c9e8b7",
+    "revision": "2fc01e2b462ca154a2a1",
     "url": "/dragonsweeper/static/css/main.b20f21b0.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dragonsweeper/static/js/2.19373ec0.chunk.js"
   },
   {
-    "revision": "859e3cfede1760c9e8b7",
-    "url": "/dragonsweeper/static/js/main.80ee943b.chunk.js"
+    "revision": "2fc01e2b462ca154a2a1",
+    "url": "/dragonsweeper/static/js/main.e56b8d56.chunk.js"
   },
   {
     "revision": "f96bc0b18a39252b8c0d",
