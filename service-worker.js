@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dragonsweeper/precache-manifest.0771ddfe3feaad5cbdff85b10542f694.js"
+  "/dragonsweeper/precache-manifest.679769bef3f0c8a28354a98c212314b4.js"
 );
 
 self.addEventListener('message', (event) => {
