@@ -164,9 +164,9 @@ const Minesweeper = ({ playSound }) => {
     }
   };
 
-  const handleDefeat = () => {
+  const handleDefeat = (arr) => {
     setDefeated(true);
-    setResults(countResults(false));
+    setResults(countResults(arr, false));
   };
 
   const handleClick = (e) => {
@@ -184,7 +184,7 @@ const Minesweeper = ({ playSound }) => {
 
     if (!defeated && !victorious) {
       if (cell.mine) {
-        handleDefeat();
+        handleDefeat(arr);
         return;
       }
 

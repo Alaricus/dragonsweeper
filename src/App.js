@@ -39,6 +39,7 @@ const App = () => {
         <a href="https://store.steampowered.com/app/740790/Goldmine/">Goldmine</a>
       </p>
       <Minesweeper playSound={playSound} />
+      { console.log('1.0.0') }
     </div>
   );
 };
