@@ -1,7 +1,23 @@
 {
-  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["airbnb"],
   "parser": "babel-eslint",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
   "plugins": [
+    "react",
     "react-hooks"
   ],
   "rules": {
@@ -9,12 +25,14 @@
     "import/no-extraneous-dependencies": 0,
     "no-confusing-arrow": 0,
     "no-class-assign": 0,
+    "no-use-before-define": ["error", { "variables": false }],
     "no-multi-spaces": [2, { "exceptions": { "ObjectExpression": true } }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "max-len": ["error", 140],
     "object-curly-newline": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 
+    "linebreak-style": ["error", "windows"],
     "no-unused-expressions": ["error", { "allowShortCircuit": true }],
 
     "jsx-a11y/anchor-is-valid": 2,
@@ -23,12 +41,8 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/mouse-events-have-key-events": "off",
     "jsx-a11y/media-has-caption": "off",
+
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error"
-  },
-  "env": {
-    "browser": true,
-    "jest": true,
-    "node": true
   }
  }

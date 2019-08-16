@@ -1,13 +1,22 @@
 {
   "name": "dragonsweeper",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "https://alaricus.github.io/dragonsweeper",
   "dependencies": {
-    "eslint": "^5.16.0",
-    "gh-pages": "^2.0.1",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "3.0.1"
+    "gh-pages": "^2.1.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "^3.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "terser": "^4.1.4"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -21,15 +30,9 @@
     "extends": "react-app"
   },
   "browserslist": [
-    "chrome 70"
+    "last 2 chrome versions",
+    "last 2 firefox versions"
   ],
   "author": "Alaric von Teplitz",
-  "license": "All rights belong to Alaric von Teplitz",
-  "homepage": "https://alaricus.github.io/dragonsweeper",
-  "devDependencies": {
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
-    "terser": "^3.16.1"
-  }
+  "license": "All rights belong to Alaric von Teplitz"
 }
