@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fee081bc8d0af487be9e900ee0995188",
+    "revision": "da694665a9b4b327b8d239ca95d08c0d",
     "url": "/dragonsweeper/index.html"
   },
   {
-    "revision": "d6623ed745833945ce9c",
-    "url": "/dragonsweeper/static/css/main.b20f21b0.chunk.css"
+    "revision": "e47fe647dc2eddef106c",
+    "url": "/dragonsweeper/static/css/main.56fb1048.chunk.css"
   },
   {
-    "revision": "71257fcd22cb79dd3fb1",
-    "url": "/dragonsweeper/static/js/2.19373ec0.chunk.js"
+    "revision": "13becfc4a1b1f7934c1b",
+    "url": "/dragonsweeper/static/js/2.b4419321.chunk.js"
   },
   {
-    "revision": "d6623ed745833945ce9c",
-    "url": "/dragonsweeper/static/js/main.0965e23c.chunk.js"
+    "revision": "e47fe647dc2eddef106c",
+    "url": "/dragonsweeper/static/js/main.4f356cdb.chunk.js"
   },
   {
-    "revision": "f96bc0b18a39252b8c0d",
-    "url": "/dragonsweeper/static/js/runtime~main.7ab4671e.js"
+    "revision": "2b0d78ab696a8b84eb11",
+    "url": "/dragonsweeper/static/js/runtime~main.7e910eb4.js"
   },
   {
     "revision": "93231d199429c53cce08ff3b89c5dadf",
