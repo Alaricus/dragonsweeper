@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import line from './images/line.png';
@@ -26,7 +26,9 @@ const icons = {
   marked,
 };
 
-const Message = (props) => {
+const Message = props => {
+  const buttonRef = useRef(null);
+
   const { type, results, playSound, acknowledge } = props;
   const dismiss = () => { window.location.reload(); };
 
@@ -35,6 +37,16 @@ const Message = (props) => {
   let messageBody = null;
   let buttonText = null;
   let closeMessage = null;
+
+  useEffect(() => {
+    buttonRef.current.focus();
+  }, []);
+
+  const handleKeyDown = e => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      closeMessage();
+    }
+  };
 
   const processProps = () => {
     if (type === 'defeat') {
@@ -74,8 +86,8 @@ const Message = (props) => {
     if (type === 'results') {
       playSound('tutorialOpen');
       displayStyle = { display: 'block', top: '100px' };
-      messageTitle = 'Loot Report';
-      messageBody = Object.keys(results.tally).map((gem) => {
+      messageTitle = 'Endgame Report';
+      messageBody = Object.keys(results.tally).map(gem => {
         if (results.tally[gem] > 0) {
           return (
             <div key={gem} className="loot">
@@ -124,19 +136,25 @@ const Message = (props) => {
   processProps();
 
   return (
-    <div
-      className={`
-        block
-        ${type === 'defeat' && 'blocklight'}
-      `}
-      onClick={() => { type === 'settings' && closeMessage(); }}
-    >
-      <div className="message" style={displayStyle} onClick={(e) => { e.stopPropagation(); }}>
-        <div className="MinerAmount">{messageTitle}</div>
-        <img alt="line" src={line} />
-        {messageBody}
-        <div className="messageButton activeCursor" onClick={closeMessage}>{buttonText}</div>
-      </div>
+    <div className={`block ${type === 'defeat' && 'blocklight'}`}>
+      {
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div className="message" style={displayStyle} onClick={e => { e.stopPropagation(); }}>
+          <div className="MinerAmount">{messageTitle}</div>
+          <img alt="line" src={line} />
+          {messageBody}
+          <div
+            role="button"
+            className="messageButton activeCursor"
+            onClick={closeMessage}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            ref={buttonRef}
+          >
+            {buttonText}
+          </div>
+        </div>
+      }
     </div>
   );
 };

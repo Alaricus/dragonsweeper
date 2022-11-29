@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
 import Message from './Message';
@@ -47,7 +47,7 @@ const Minesweeper = ({ playSound }) => {
 
     if (neighbors.length === 0) { return arrToClear; }
 
-    neighbors.forEach((item) => {
+    neighbors.forEach(item => {
       const warningNumber = getWarningNumber(item.row, item.col, arrToClear);
       const cell = arrToClear[item.row][item.col];
       if (!cell.flag) {
@@ -109,7 +109,7 @@ const Minesweeper = ({ playSound }) => {
     return arr;
   };
 
-  const handleRightClick = (e) => {
+  const handleRightClick = e => {
     e.preventDefault();
 
     if (!defeated && !victorious) {
@@ -155,7 +155,7 @@ const Minesweeper = ({ playSound }) => {
     return gameResults;
   };
 
-  const checkVictoryCondition = (arr) => {
+  const checkVictoryCondition = arr => {
     const flat = arr.reduce((acc, cur) => [...acc, ...cur], []);
     const won = flat.every(item => item.number !== null || item.mine);
     if (won) {
@@ -164,12 +164,12 @@ const Minesweeper = ({ playSound }) => {
     }
   };
 
-  const handleDefeat = (arr) => {
+  const handleDefeat = arr => {
     setDefeated(true);
     setResults(countResults(arr, false));
   };
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     const r = e.target.dataset.row;
     const c = e.target.dataset.col;
     let arr = JSON.parse(JSON.stringify(board));
@@ -211,7 +211,7 @@ const Minesweeper = ({ playSound }) => {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <div className="field">
         {
           board.map((row, rIndex) => (
@@ -238,12 +238,10 @@ const Minesweeper = ({ playSound }) => {
         }
         { defeated
           && !acknowledged
-          && <Message type="defeat" acknowledge={acknowledgeEnd} playSound={playSound} />
-        }
+          && <Message type="defeat" acknowledge={acknowledgeEnd} playSound={playSound} />}
         { victorious
           && !acknowledged
-          && <Message type="victory" acknowledge={acknowledgeEnd} playSound={playSound} />
-        }
+          && <Message type="victory" acknowledge={acknowledgeEnd} playSound={playSound} />}
       </div>
       <div className="egginfo">
         {`${flagged} ${flagged === 1 ? 'egg' : 'eggs'} marked out of ${Math.ceil((width * height) * amount)} live ones`}
@@ -258,7 +256,7 @@ const Minesweeper = ({ playSound }) => {
           />
         )
       }
-    </Fragment>
+    </>
   );
 };
 

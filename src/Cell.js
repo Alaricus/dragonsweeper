@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Cell = ({
@@ -23,9 +23,19 @@ const Cell = ({
     setHovering(false);
   };
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     setHovering(false);
     handleLeftClick(e);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      if (e.shiftKey) {
+        handleRightClick(e);
+      } else {
+        handleLeftClick(e);
+      }
+    }
   };
 
   return (
@@ -38,8 +48,7 @@ const Cell = ({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        defeated={defeated}
-        victorious={victorious}
+        role="button"
         onClick={handleClick}
         onContextMenu={handleRightClick}
         className={`
@@ -52,6 +61,8 @@ const Cell = ({
         data-col={cIndex}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
       >
         <div
           className={`
