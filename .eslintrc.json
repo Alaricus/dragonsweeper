@@ -1,23 +1,14 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es2021": true
   },
-  "extends": ["airbnb", "plugin:react/jsx-runtime"],
-  "parser": "@babel/eslint-parser",
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "requireConfigFile": false,
-    "babelOptions": {
-      "presets": ["@babel/preset-react"]
-    }
-  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks"
+  ],
   "plugins": [
-    "react",
-    "react-hooks"
+    "react"
   ],
   "rules": {
     "function-paren-newline": 0,
@@ -41,6 +32,7 @@
     }],
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
+    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [2, { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }],
     "arrow-parens": ["error", "as-needed"],
     "import/prefer-default-export": "off"

@@ -208,7 +208,7 @@ const Minesweeper = ({ playSound }) => {
   useEffect(() => {
     playSound('start');
     setBoard(buildBoard());
-  }, []);
+  }, [playSound]);
 
   return (
     <>
